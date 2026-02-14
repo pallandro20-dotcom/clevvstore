@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClevvStore • Top Up Game Paling Seru</title>
+    
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+     
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    
+    <style>
+        /* ========== VARIABLES MODERN ========== */
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #60a5fa;
+            --primary-glow: rgba(59, 130, 246, 0.4);
+            --accent: #8b5cf6;
+            --accent-glow: rgba(139, 92, 246, 0.3);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --shadow-xs: 0 2px 4px rgba(0,0,0,0.02);
+            --shadow-sm: 0 4px 8px rgba(0,0,0,0.03);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.06);
+            --shadow-lg: 0 16px 32px rgba(0,0,0,0.1);
+            --shadow-xl: 0 24px 48px rgba(59,130,246,0.15);
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --radius-full: 9999px;
+            --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ========== BACKGROUND GRID HITAM OPACITY 45% ========== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.45) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.45) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ========== BACKGROUND ANIMASI (FLOATING PARTICLES) ========== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(0) translateX(20px); }
+            75% { transform: translateY(20px) translateX(5px); }
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== HEADER GLASSMORPHISM ========== */
+        header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 12px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-img {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: rotate(6deg) scale(1.05);
+        }
+
+        .logo-text {
+            font-size: 30px;
+            font-weight: 800;
+            background: linear-gradient(145deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.8px;
+            text-shadow: 0 2px 10px var(--primary-glow);
+        }
+
+        /* ========== PENCARIAN DENGAN TOMBOL LUP DI SAMPING ========== */
+        .search-section {
+            position: relative;
+            width: 380px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            font-size: 15px;
+            font-weight: 500;
+            transition: var(--transition);
+            background: var(--white);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-glow);
+        }
+
+        .search-button {
+            background: linear-gradient(145deg, var(--primary), var(--accent));
+            border: none;
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .search-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 18px var(--primary-glow);
+        }
+
+        /* ========== SEARCH RESULTS ========== */
+        .search-results {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            max-height: 380px;
+            overflow-y: auto;
+            z-index: 1001;
+            margin-top: 12px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--gray-200);
+            cursor: pointer;
+            transition: var(--transition);
+            gap: 14px;
+        }
+
+        .search-result-item:hover {
+            background-color: var(--gray-100);
+        }
+
+        .search-result-img {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--gray-200);
+        }
+
+        .search-result-name {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 16px;
+        }
+
+        .search-result-company {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        /* ========== NOTIFIKASI ORDER TERBARU (MARQUEE) ========== */
+        .live-orders {
+            background: linear-gradient(90deg, var(--primary-dark), var(--accent));
+            color: white;
+            padding: 12px 0;
+            overflow: hidden;
+            margin-top: 8px;
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .live-orders-content {
+            display: flex;
+            align-items: center;
+            animation: scroll 35s linear infinite;
+            white-space: nowrap;
+        }
+
+        .live-orders-item {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 40px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .live-orders-item i {
+            margin-right: 8px;
+            color: #ffe083;
+            text-shadow: 0 0 8px gold;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ========== SLIDER TANPA DOTS, TITLE LEBIH KECIL ========== */
+        .slider-section {
+            margin: 30px 0 40px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            height: 300px;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .slider-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slider-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 25px 30px;
+        }
+
+        .slider-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .slider-description {
+            font-size: 15px;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        /* ========== FILTER BADGE ========== */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-badge {
+            display: inline-block;
+            background: var(--white);
+            color: var(--dark);
+            font-size: 15px;
+            font-weight: 700;
+            padding: 8px 24px;
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-sm);
+            border: 2px solid var(--gray-200);
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-badge:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-badge.active {
+            background: linear-gradient(145deg, var(--primary), var(--accent));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 18px var(--primary-glow);
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: linear-gradient(145deg, var(--primary), var(--accent));
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 8px 24px;
+            border-radius: var(--radius-full);
+            box-shadow: 0 8px 18px rgba(59,130,246,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: var(--radius-full);
+        }
+
+        /* ========== GAME CARD – GRID 2 KOLOM, CARD 1:1 ========== */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-bottom: 60px;
+        }
+
+        .game-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid var(--gray-200);
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
+        }
+
+        .game-image-container {
+            flex: 1;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .game-card:hover .game-image {
+            transform: scale(1.08);
+        }
+
+        .game-info {
+            padding: 14px 18px;
+            position: relative;
+            background: white;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .game-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .game-company {
+            font-size: 13px;
+            color: var(--gray-500);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .game-arrow {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            color: var(--primary);
+            font-size: 20px;
+            transition: var(--transition);
+            opacity: 0.6;
+        }
+
+        .game-card:hover .game-arrow {
+            right: 12px;
+            opacity: 1;
+            transform: rotate(360deg);
+        }
+/* ========== MODAL UTAMA ========== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            width: 95%;
+            max-width: 1100px;
+            margin: 40px auto;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.92) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-header {
+            background: linear-gradient(145deg, var(--primary), var(--accent));
+            color: white;
+            padding: 28px 32px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .modal-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+
+        .modal-game-name {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .modal-game-company {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 28px;
+            right: 28px;
+            background: rgba(255,255,255,0.2);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 24px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.35);
+            transform: rotate(180deg);
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        /* ========== FORM ORDER ========== */
+        .order-form {
+            background: var(--gray-100);
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .form-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-title i {
+            color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 500;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-glow);
+            outline: none;
+        }
+
+        .region-check {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 14px 20px;
+            background: rgba(16, 185, 129, 0.12);
+            border-radius: var(--radius-md);
+            color: var(--success);
+            font-weight: 600;
+            display: none;
+            border-left: 6px solid var(--success);
+        }
+
+        /* ========== PAKET CARD ========== */
+        .packages-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+            margin-bottom: 30px;
+        }
+
+        .package-item {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid var(--gray-200);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            backdrop-filter: blur(4px);
+        }
+
+        .package-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 28px -8px var(--primary-glow);
+        }
+
+        .package-item.selected, .currency-item.selected, .payment-item.selected {
+            border-color: var(--primary) !important;
+            background: linear-gradient(145deg, white, rgba(59,130,246,0.04));
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .package-name {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .package-desc {
+            font-size: 14px;
+            color: var(--gray-500);
+            margin-bottom: 14px;
+        }
+
+        .package-price {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        /* BADGE TERLARIS – FIX TIDAK MENUTUPI TEKS */
+        .package-badge {
+            position: absolute;
+            top: -12px;
+            right: 16px;
+            background: linear-gradient(145deg, var(--warning), #f97316);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: var(--radius-full);
+            box-shadow: 0 8px 16px rgba(245,158,11,0.5);
+            z-index: 2;
+            border: 2px solid white;
+        }
+
+        /* ========== CURRENCY GRID – 5 KOLOM ========== */
+        .currency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .currency-item {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 16px 12px;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid var(--gray-200);
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .currency-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .currency-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .currency-desc {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-bottom: 10px;
+        }
+
+        .currency-price {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* ========== METODE PEMBAYARAN ========== */
+        .payment-methods {
+            margin: 40px 0 30px;
+            padding: 28px;
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 2px dashed var(--gray-300);
+        }
+
+        .payment-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .payment-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+        }
+
+        .payment-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            border: 2px solid var(--gray-200);
+            cursor: pointer;
+            width: 110px;
+        }
+
+        .payment-item:hover {
+            border-color: var(--primary-light);
+            transform: scale(1.05);
+        }
+
+        .payment-logo {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            background: white;
+            border-radius: 16px;
+            padding: 8px;
+        }
+
+        .payment-name {
+            margin-top: 8px;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+
+        /* ========== ORDER SUMMARY ========== */
+        .order-summary {
+            background: linear-gradient(145deg, var(--gray-100), white);
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-top: 30px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .summary-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .summary-total {
+            font-weight: 800;
+            font-size: 26px;
+            color: var(--primary);
+            padding-top: 18px;
+            border-bottom: none;
+        }
+
+        .whatsapp-order {
+            display: block;
+            width: 100%;
+            background: linear-gradient(145deg, #25D366, #128C7E);
+            color: white;
+            text-align: center;
+            padding: 18px;
+            border-radius: var(--radius-md);
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 24px;
+            transition: var(--transition);
+            box-shadow: 0 12px 24px rgba(37,211,102,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .whatsapp-order:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 32px rgba(37,211,102,0.5);
+        }
+
+        /* ========== POPUP SUKSES ORDER ========== */
+        .success-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .success-content {
+            background: white;
+            max-width: 400px;
+            width: 90%;
+            border-radius: var(--radius-xl);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .checkmark {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            animation: scaleCheck 0.5s;
+        }
+
+        .checkmark i {
+            color: white;
+            font-size: 50px;
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .success-message {
+            font-size: 16px;
+            color: var(--gray-500);
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes scaleCheck {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 24px;
+            margin-bottom: 22px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #cbd5e1;
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: white;
+            padding-left: 6px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 992px) {
+            .modal-content { max-width: 95%; }
+            .currency-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+            .games-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 16px; }
+            .search-section { width: 100%; }
+            .slider-section { height: 200px; }
+            .modal-header { flex-direction: column; text-align: center; }
+            .form-row { grid-template-columns: 1fr; }
+            .currency-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+            .payment-grid { gap: 16px; }
+            .payment-item { width: 100px; }
+            .payment-logo { width: 60px; height: 60px; }
+            .games-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .game-name { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PARTIKEL ANIMASI -->
+    <div class="particles" id="particles"></div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="https://i.imgur.com/uYUQB8R.png" alt="ClevvStore" class="logo-img">
+                    <div class="logo-text">ClevvStore</div>
+                </div>
+                <div class="search-section">
+                    <input type="text" class="search-input" id="search-input" placeholder="Cari game keren...">
+                    <button class="search-button" id="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="search-results" id="search-results"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- LIVE NOTIFIKASI ORDER (MARQUEE) -->
+    <div class="live-orders">
+        <div class="container">
+            <div class="live-orders-content" id="liveOrdersContent"></div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <!-- SLIDER – TANPA DOTS -->
+        <section class="slider-section">
+            <div class="slider-container" id="slider-container">
+                <div class="slider-track" id="slider-track">
+                    <div class="slider-slide">
+                        <img src="https://i.imgur.com/ru64YF8.png" alt="Promo" class="slider-image">
+                        <div class="slider-overlay">
+                            <h2 class="slider-title"> </h2>
+                            <p class="slider-description">Diamond langsung masuk! Garansi 100%</p>
+                        </div>
+                    </div>
+                    <div class="slider-slide">
+                        <img src="https://i.imgur.com/OqDfdmv.png" alt="MLBB" class="slider-image">
+                        <div class="slider-overlay">
+                            <h2 class="slider-title"> </h2>
+                            <p class="slider-description">Harga termurah se-Indonesia</p>
+                        </div>
+                    </div>
+                    <div class="slider-slide">
+                        <img src="https://i.imgur.com/vYZLF2Q.png" alt="Promo Baru" class="slider-image">
+                        <div class="slider-overlay">
+                            <h2 class="slider-title"> </h2>
+                            <p class="slider-description">Hanya hari ini, buruan top up!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- GAME CATEGORIES – DENGAN FILTER BADGE -->
+        <section>
+            <div class="filter-bar">
+                <span class="category-badge">🔥 POPULER BANGET</span>
+                <span class="filter-badge active" data-filter="popular">Semua</span>
+                <span class="filter-badge" data-filter="moba">🎮 MOBA</span>
+                <span class="filter-badge" data-filter="action"> 🔫 ACTION</span>
+            </div>
+            <h2 class="section-title">Game Favoritmu!</h2>
+            <div class="games-grid" id="games-grid">
+                <!-- Game cards akan dirender oleh JS, tapi kita sudah punya struktur static, kita akan atur via JS filter -->
+                <div class="game-card" data-game="mlbb" data-category="moba">
+                    <div class="game-image-container">
+                        <img src="https://i.imgur.com/3x77ZoL.png" alt="MLBB" class="game-image">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-name">Mobile Legend</h3>
+                        <p class="game-company">Moonton</p>
+                        <div class="game-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                    </div>
+                </div>
+                <div class="game-card" data-game="pubg" data-category="action">
+                    <div class="game-image-container">
+                        <img src="https://i.imgur.com/H9qJgq8.png" alt="PUBG" class="game-image">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-name">PUBG Mobile</h3>
+                        <p class="game-company">Tencent Games</p>
+                        <div class="game-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                    </div>
+                </div>
+                <div class="game-card" data-game="freefire" data-category="action">
+                    <div class="game-image-container">
+                        <img src="https://i.imgur.com/lGkrHwW.png" alt="Free Fire" class="game-image">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-name">Free Fire</h3>
+                        <p class="game-company">Garena</p>
+                        <div class="game-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                    </div>
+                </div>
+                <div class="game-card" data-game="codmobile" data-category="action">
+                    <div class="game-image-container">
+                        <img src="https://i.imgur.com/tdrzXab.png" alt="Call Of Duty" class="game-image">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-name">Call of Duty</h3>
+                        <p class="game-company">Activision</p>
+                        <div class="game-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL DINAMIS -->
+    <div class="modal-overlay" id="game-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="" alt="Logo" class="modal-logo" id="modal-logo">
+                <div>
+                    <h2 class="modal-game-name" id="modal-game-name"></h2>
+                    <p class="modal-game-company" id="modal-game-company"></p>
+                </div>
+                <div class="modal-close" id="modal-close"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-body">
+                <!-- FORM ID & SERVER -->
+                <div class="order-form" id="order-form-section">
+                    <h3 class="form-title"><i class="fas fa-id-card"></i> Masukkan Data Player</h3>
+                    <div class="form-group">
+                        <label class="form-label" for="player-id">ID Player</label>
+                        <input type="text" id="player-id" class="form-input" placeholder="Masukkan ID Player">
+                    </div>
+                    <div class="form-row" id="server-row">
+                        <div class="form-group">
+                            <label class="form-label" for="server-id">Server (Zone)</label>
+                            <input type="text" id="server-id" class="form-input" placeholder="Masukkan Server">
+                            <small style="color: var(--gray-500); display: block; margin-top: 6px;">Contoh: 1234 (opsional, jika tidak ada = -)</small>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="nickname">Nickname</label>
+                            <input type="text" id="nickname" class="form-input" placeholder="Otomatis" readonly>
+                        </div>
+                    </div>
+                    <div id="region-check" class="region-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Region Terdaftar: Indonesia</span>
+                    </div>
+                </div>
+
+                <!-- WEEKLY PASS (MLBB) -->
+                <div class="packages-section" id="weekly-pass-section" style="display:none;">
+                    <h3 class="packages-title"><i class="fas fa-calendar-week"></i> Weekly Diamond Pass</h3>
+                    <div class="packages-grid" id="weekly-pass-grid"></div>
+                </div>
+
+                <!-- STARLIGHT (MLBB) -->
+                <div class="packages-section" id="starlight-section" style="display:none;">
+                    <h3 class="packages-title"><i class="fas fa-star"></i> Starlight Member</h3>
+                    <div class="packages-grid" id="starlight-grid"></div>
+                </div>
+
+                <!-- CURRENCY SECTION -->
+                <div class="packages-section">
+                    <h3 class="packages-title" id="currency-title">Diamond</h3>
+                    <div class="currency-grid" id="currency-grid"></div>
+                </div>
+
+                <!-- METODE PEMBAYARAN -->
+                <div class="payment-methods">
+                    <h3 class="payment-title"><i class="fas fa-credit-card"></i> Pilih Metode Pembayaran</h3>
+                    <div class="payment-grid" id="payment-grid">
+                        <div class="payment-item" data-payment="DANA">
+                            <img src="https://i.imgur.com/bbYmy3I.png" alt="DANA" class="payment-logo">
+                            <span class="payment-name">DANA</span>
+                        </div>
+                        <div class="payment-item" data-payment="GoPay">
+                            <img src="https://i.imgur.com/BOS7HKh.png" alt="GoPay" class="payment-logo">
+                            <span class="payment-name">GoPay</span>
+                        </div>
+                        <div class="payment-item" data-payment="ShopeePay">
+                            <img src="https://i.imgur.com/Uv2HSbx.png" alt="ShopeePay" class="payment-logo">
+                            <span class="payment-name">ShopeePay</span>
+                        </div>
+                        <div class="payment-item" data-payment="OVO">
+                            <img src="https://i.imgur.com/PKF2Opy.png" alt="OVO" class="payment-logo">
+                            <span class="payment-name">OVO</span>
+                        </div>
+                        <div class="payment-item" data-payment="QRIS">
+                            <img src="https://i.imgur.com/SFzFdjq.png" alt="QRIS" class="payment-logo" style="background:white; padding:6px; border-radius:12px;">
+                            <span class="payment-name">QRIS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ORDER SUMMARY -->
+                <div class="order-summary">
+                    <h3 class="summary-title">📋 Ringkasan Pesanan</h3>
+                    <div class="summary-item"><span>Paket:</span><span id="selected-package-name">-</span></div>
+                    <div class="summary-item"><span>ID Player:</span><span id="summary-player-id">-</span></div>
+                    <div class="summary-item"><span>Server:</span><span id="summary-server">-</span></div>
+                    <div class="summary-item"><span>Pembayaran:</span><span id="selected-payment">-</span></div>
+                    <div class="summary-item"><span>Pengiriman:</span><span>⚡ INSTAN</span></div>
+                    <div class="summary-item summary-total"><span>Total:</span><span id="summary-total">Rp0</span></div>
+                    <a href="#" class="whatsapp-order" id="whatsapp-order"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: var(--gray-100); border-radius: var(--radius-md); text-align: center; border-left: 6px solid var(--success);">
+                    <p style="color: var(--gray-600); margin-bottom: 8px;"><i class="fas fa-shield-alt"></i> Garansi 100% uang kembali jika diamond tidak masuk 15 menit</p>
+                    <p style="color: var(--gray-500); font-size: 14px;">Proses otomatis • 1-5 menit • 24/7</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- POPUP SUKSES ORDER -->
+    <div class="success-popup" id="success-popup">
+        <div class="success-content">
+            <div class="checkmark">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3 class="success-title">Order Successfully!</h3>
+            <p class="success-message">Otomatis dialihkan ke WhatsApp dalam <span id="countdown-number" class="countdown">3</span> detik.</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ClevvStore</h3>
+                    <p>Top up game termurah, tercepat, dan paling seru! 🎮</p>
+                    <p>Support 24/7 | Garansi 100%</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Layanan</h3>
+                    <a href="#">Mobile Legends</a>
+                    <a href="#">PUBG Mobile</a>
+                    <a href="#">Free Fire</a>
+                    <a href="#">Call of Duty</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Bantuan</h3>
+                    <a href="#">Cara Order</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Kontak</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Pembayaran</h3>
+                    <p>DANA, OVO, GoPay, ShopeePay, QRIS</p>
+                    <p>Transfer BCA/Mandiri/BRI/BNI</p>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2026 ClevvStore • Top Up Jadi Happy ✨
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== DATA GAME LENGKAP – HARGA TIDAK DIUBAH ====================
+        const gamesData = [
+            { 
+                id: 'mlbb', 
+                name: 'Mobile Legends: Bang Bang', 
+                company: 'Moonton', 
+                image: 'https://i.imgur.com/LG1uRci.png', 
+                logo: 'https://i.imgur.com/LG1uRci.png',
+                hasIdServer: true,
+                requiresServer: true,
+                currencyName: 'Diamond',
+                currencyTitle: 'Diamond MLBB',
+                weeklyPass: [
+                    { id: 'wdp-1', name: '1x Weekly Diamond Pass', desc: '80+20 Diamond/Hari (7 hari)', price: 27900, badge: 'TERLARIS' },
+                    { id: 'wdp-2', name: '2x Weekly Diamond Pass', desc: '80+20/Hari (14 hari)', price: 55500 },
+                    { id: 'wdp-3', name: '3x Weekly Diamond Pass', desc: '80+20/Hari (21 hari)', price: 83990 },
+                    { id: 'wdp-4', name: '4x Weekly Diamond Pass', desc: '80+20/Hari (28 hari)', price: 111999 },
+                    { id: 'wdp-5', name: '5x Weekly Diamond Pass', desc: '80+20/Hari (32 hari)', price: 139500 }
+                ],
+                starlight: [
+                    { id: 'sl-1', name: 'Starlight Member Basic', desc: '301 (261+40 Bonus) Diamond + Skin', price: 78000 },
+                    { id: 'sl-3', name: 'Starlight Member Premium', desc: '717 (638+79 Bonus) Diamond + Skin', price: 183000 }
+                ],
+                currencyPackages: [
+                    // ... data lengkap 97 item (sama seperti kiriman terakhir, tidak diubah)
+                    { id: 1, name: "3 Diamond", desc: "3 Diamond", price: 1145 },
+                    { id: 2, name: "5 Diamond", desc: "5 Diamond", price: 1490 },
+                    { id: 3, name: "12 (11+1 Bonus) Diamond", desc: "12 (11+1 Bonus)", price: 3294 },
+                    { id: 4, name: "19 (17+2 Bonus) Diamond", desc: "19 (17+2 Bonus)", price: 4836 },
+                    { id: 5, name: "28 (25+3 Bonus) Diamond", desc: "28 (25+3 Bonus)", price: 7295 },
+                    { id: 6, name: "36 (33+3 Bonus) Diamond", desc: "36 (33+3 Bonus)", price: 9549 },
+                    { id: 7, name: "44 (40+4 Bonus) Diamond", desc: "44 (40+4 Bonus)", price: 11138 },
+                    { id: 8, name: "56 (51+5 Bonus) Diamond", desc: "56 (51+5 Bonus)", price: 14367 },
+                    { id: 9, name: "59 (53+6 Bonus) Diamond", desc: "59 (53+6 Bonus)", price: 14923 },
+                    { id: 10, name: "74 (69+5 Bonus) Diamond", desc: "74 (69+5 Bonus)", price: 19160 },
+                    { id: 11, name: "86 (78+8 Bonus) Diamond", desc: "86 (78+8 Bonus)", price: 21849 },
+                    { id: 12, name: "85 (77+8 Bonus) Diamond", desc: "85 (77+8 Bonus)", price: 22318 },
+                    { id: 13, name: "100 Diamond", desc: "100 Diamond", price: 24819 },
+                    { id: 14, name: "112 (102+10 Bonus) Diamond", desc: "112 (102+10 Bonus)", price: 28588 },
+                    { id: 15, name: "144 (130+14 Bonus) Diamond", desc: "144 (130+14 Bonus)", price: 37260 },
+                    { id: 16, name: "172 (156+16 Bonus) Diamond", desc: "172 (156+16 Bonus)", price: 44402 },
+                    { id: 17, name: "170 (154+16 Bonus) Diamond", desc: "170 (154+16 Bonus)", price: 44523 },
+                    { id: 18, name: "185 (167+18 Bonus) Diamond", desc: "185 (167+18 Bonus)", price: 47529 },
+                    { id: 19, name: "222 (200+22 Bonus) Diamond", desc: "222 (200+22 Bonus)", price: 57096 },
+                    { id: 20, name: "229 (207+22 Bonus) Diamond", desc: "229 (207+22 Bonus)", price: 59871 },
+                    { id: 21, name: "240 (217+23 Bonus) Diamond", desc: "240 (217+23 Bonus)", price: 62517 },
+                    { id: 22, name: "257 (234+23 Bonus) Diamond", desc: "257 (234+23 Bonus)", price: 65623 },
+                    { id: 23, name: "284 (254+30 Bonus) Diamond", desc: "284 (254+30 Bonus)", price: 77473 },
+                    { id: 24, name: "278 (251+27 Bonus) Diamond", desc: "278 (251+27 Bonus)", price: 74670 },
+                    { id: 25, name: "264 Diamond", desc: "264 Diamond", price: 73913 },
+                    { id: 26, name: "296 (256+40 Bonus) Diamond", desc: "296 (256+40 Bonus)", price: 75383 },
+                    { id: 27, name: "301 (261+40 Bonus) Diamond", desc: "301 (261+40 Bonus)", price: 78099 },
+                    { id: 28, name: "344 (312+32 Bonus) Diamond", desc: "344 (312+32 Bonus)", price: 86649 },
+                    { id: 29, name: "345 (301+44 Bonus) Diamond", desc: "345 (301+44 Bonus)", price: 89811 },
+                    { id: 30, name: "355 (309+46 Bonus) Diamond", desc: "355 (309+46 Bonus)", price: 92022 },
+                    { id: 31, name: "374 (326+48 Bonus) Diamond", desc: "374 (326+48 Bonus)", price: 97585 },
+                    { id: 32, name: "370 (333+37 Bonus) Diamond", desc: "370 (333+37 Bonus)", price: 98060 },
+                    { id: 33, name: "381 (333+48 Bonus) Diamond", desc: "381 (333+48 Bonus)", price: 99023 },
+                    { id: 34, name: "408 (367+41 Bonus) Diamond", desc: "408 (367+41 Bonus)", price: 106281 },
+                    { id: 35, name: "429 (390+39 Bonus) Diamond", desc: "429 (390+39 Bonus)", price: 109955 },
+                    { id: 36, name: "425 (373+52 Bonus) Diamond", desc: "425 (373+52 Bonus)", price: 111635 },
+                    { id: 37, name: "448 Diamond", desc: "448 Diamond", price: 128457 },
+                    { id: 38, name: "384 Diamond", desc: "384 Diamond", price: 128947 },
+                    { id: 39, name: "460 Diamond", desc: "460 Diamond", price: 128957 },
+                    { id: 40, name: "514 (468+46 Bonus) Diamond", desc: "514 (468+46 Bonus)", price: 132008 },
+                    { id: 41, name: "512 (461+51 Bonus) Diamond", desc: "512 (461+51 Bonus)", price: 134132 },
+                    { id: 42, name: "522 (471+51 Bonus) Diamond", desc: "522 (471+51 Bonus)", price: 137011 },
+                    { id: 43, name: "500 Diamond", desc: "500 Diamond", price: 137340 },
+                    { id: 44, name: "518 Diamond", desc: "518 Diamond", price: 138944 },
+                    { id: 45, name: "568 (503+65 Bonus) Diamond", desc: "568 (503+65 Bonus)", price: 142531 },
+                    { id: 46, name: "601 (533+68 Bonus) Diamond", desc: "601 (533+68 Bonus)", price: 154231 },
+                    { id: 47, name: "600 (568+32 Bonus) Diamond", desc: "600 (568+32 Bonus)", price: 154594 },
+                    { id: 48, name: "642 Diamond", desc: "642 Diamond", price: 173314 },
+                    { id: 49, name: "706 (625+81 Bonus) Diamond", desc: "706 (625+81 Bonus)", price: 181741 },
+                    { id: 50, name: "712 (633+79 Bonus) Diamond", desc: "712 (633+79 Bonus)", price: 182526 },
+                    { id: 51, name: "717 (638+79 Bonus) Diamond", desc: "717 (638+79 Bonus)", price: 183966 },
+                    { id: 52, name: "875 (774+101 Bonus) Diamond", desc: "875 (774+101 Bonus)", price: 217553 },
+                    { id: 53, name: "963 (859+104 Bonus) Diamond", desc: "963 (859+104 Bonus)", price: 246144 },
+                    { id: 54, name: "965 (856+109 Bonus) Diamond", desc: "965 (856+109 Bonus)", price: 246646 },
+                    { id: 55, name: "977 (867+110 Bonus) Diamond", desc: "977 (867+110 Bonus)", price: 250003 },
+                    { id: 56, name: "1050 (937+113 Bonus) Diamond", desc: "1050 (937+113 Bonus)", price: 266313 },
+                    { id: 57, name: "1136 (1006+130 Bonus) Diamond", desc: "1136 (1006+130 Bonus)", price: 288230 },
+                    { id: 58, name: "1134 (1008+126 Bonus) Diamond", desc: "1134 (1008+126 Bonus)", price: 289127 },
+                    { id: 59, name: "1139 (1013+126 Bonus) Diamond", desc: "1139 (1013+126 Bonus)", price: 290566 },
+                    { id: 60, name: "1159 (1031+128 Bonus) Diamond", desc: "1159 (1031+128 Bonus)", price: 295362 },
+                    { id: 61, name: "1164 (1036+128 Bonus) Diamond", desc: "1164 (1036+128 Bonus)", price: 296802 },
+                    { id: 62, name: "1183 (1041+142 Bonus) Diamond", desc: "1183 (1041+142 Bonus)", price: 301553 },
+                    { id: 63, name: "1220 (1159+61 Bonus) Diamond", desc: "1220 (1159+61 Bonus)", price: 310174 },
+                    { id: 64, name: "1230 (1083+147 Bonus) Diamond", desc: "1230 (1083+147 Bonus)", price: 313542 },
+                    { id: 65, name: "1368 (1218+150 Bonus) Diamond", desc: "1368 (1218+150 Bonus)", price: 348988 },
+                    { id: 66, name: "1412 (1250+162 Bonus) Diamond", desc: "1412 (1250+162 Bonus)", price: 359429 },
+                    { id: 67, name: "1443 (1277+166 Bonus) Diamond", desc: "1443 (1277+166 Bonus)", price: 365754 },
+                    { id: 68, name: "1453 (1295+158 Bonus) Diamond", desc: "1453 (1295+158 Bonus)", price: 371553 },
+                    { id: 69, name: "1507 (1335+172 Bonus) Diamond", desc: "1507 (1335+172 Bonus)", price: 382541 },
+                    { id: 70, name: "1672 (1484+188 Bonus) Diamond", desc: "1672 (1484+188 Bonus)", price: 425223 },
+                    { id: 71, name: "1704 (1509+195 Bonus) Diamond", desc: "1704 (1509+195 Bonus)", price: 432852 },
+                    { id: 72, name: "1750 (1548+202 Bonus) Diamond", desc: "1750 (1548+202 Bonus)", price: 441264 },
+                    { id: 73, name: "2010 (1708+302 Bonus) Diamond", desc: "2010 (1708+302 Bonus)", price: 479845 },
+                    { id: 74, name: "2180 (1862+318 Bonus) Diamond", desc: "2180 (1862+318 Bonus)", price: 524672 },
+                    { id: 75, name: "2199 (1879+320 Bonus) Diamond", desc: "2199 (1879+320 Bonus)", price: 528940 },
+                    { id: 76, name: "2195 (1860+335 Bonus) Diamond", desc: "2195 (1860+335 Bonus)", price: 530831 },
+                    { id: 77, name: "2350 (2017+333 Bonus) Diamond", desc: "2350 (2017+333 Bonus)", price: 569145 },
+                    { id: 78, name: "2382 (2033+349 Bonus) Diamond", desc: "2382 (2033+349 Bonus)", price: 577254 },
+                    { id: 79, name: "2536 (2182+354 Bonus) Diamond", desc: "2536 (2182+354 Bonus)", price: 617016 },
+                    { id: 80, name: "2578 (2211+367 Bonus) Diamond", desc: "2578 (2211+367 Bonus)", price: 625172 },
+                    { id: 81, name: "2904 (2499+405 Bonus) Diamond", desc: "2904 (2499+405 Bonus)", price: 695683 },
+                    { id: 82, name: "2885 (2482+403 Bonus) Diamond", desc: "2885 (2482+403 Bonus)", price: 699781 },
+                    { id: 83, name: "3453 (2985+468 Bonus) Diamond", desc: "3453 (2985+468 Bonus)", price: 843492 },
+                    { id: 84, name: "3481 (3010+471 Bonus) Diamond", desc: "3481 (3010+471 Bonus)", price: 852977 },
+                    { id: 85, name: "3693 (3202+491 Bonus) Diamond", desc: "3693 (3202+491 Bonus)", price: 907520 },
+                    { id: 86, name: "4020 (3416+604 Bonus) Diamond", desc: "4020 (3416+604 Bonus)", price: 960100 },
+                    { id: 87, name: "4404 (3763+641 Bonus) Diamond", desc: "4404 (3763+641 Bonus)", price: 1068724 },
+                    { id: 88, name: "4678 (4001+677 Bonus) Diamond", desc: "4678 (4001+677 Bonus)", price: 1136215 },
+                    { id: 89, name: "4830 (4003+827 Bonus) Diamond", desc: "4830 (4003+827 Bonus)", price: 1160413 },
+                    { id: 90, name: "6030 (5124+906 Bonus) Diamond", desc: "6030 (5124+906 Bonus)", price: 1448650 },
+                    { id: 91, name: "6257 (5274+983 Bonus) Diamond", desc: "6257 (5274+983 Bonus)", price: 1524253 },
+                    { id: 92, name: "6840 (5711+1129 Bonus) Diamond", desc: "6840 (5711+1129 Bonus)", price: 1638956 },
+                    { id: 93, name: "7195 (6020+1175 Bonus) Diamond", desc: "7195 (6020+1175 Bonus)", price: 1730864 },
+                    { id: 94, name: "7660 (6442+1218 Bonus) Diamond", desc: "7660 (6442+1218 Bonus)", price: 1848146 },
+                    { id: 95, name: "7723 (6487+1236 Bonus) Diamond", desc: "7723 (6487+1236 Bonus)", price: 1864408 },
+                    { id: 96, name: "8040 (6832+1208 Bonus) Diamond", desc: "8040 (6832+1208 Bonus)", price: 1926186 },
+                    { id: 97, name: "8303 (7005+1297 Bonus) Diamond", desc: "8303 (7005+1297 Bonus)", price: 1998980 }
+                ]
+            },
+            { 
+                id: 'pubg', 
+                name: 'PUBG Mobile', 
+                company: 'Tencent Games', 
+                image: 'https://i.imgur.com/X8nRs6V.png', 
+                logo: 'https://i.imgur.com/X8nRs6V.png',
+                hasIdServer: true,
+                requiresServer: true,
+                currencyName: 'UC',
+                currencyTitle: 'Unknown Cash',
+                currencyPackages: [
+                    { id: 1, name: "15 UC", desc: "15 Unknown Cash", price: 7199 },
+                    { id: 2, name: "35 UC", desc: "35 Unknown Cash", price: 14500 },
+                    { id: 3, name: "25 UC", desc: "25 Unknown Cash", price: 14978 },
+                    { id: 4, name: "50 UC", desc: "50 Unknown Cash", price: 15577 },
+                    { id: 5, name: "60 UC", desc: "60 Unknown Cash", price: 15775 },
+                    { id: 6, name: "70 UC", desc: "70 Unknown Cash", price: 120000 },
+                    { id: 7, name: "100 UC", desc: "100 Unknown Cash", price: 28710 },
+                    { id: 8, name: "150 UC", desc: "150 Unknown Cash", price: 44900 },
+                    { id: 9, name: "125 UC", desc: "125 Unknown Cash", price: 44990 },
+                    { id: 10, name: "210 UC", desc: "210 Unknown Cash", price: 58640 },
+                    { id: 11, name: "200 UC", desc: "200 Unknown Cash", price: 59412 },
+                    { id: 12, name: "250 UC", desc: "250 Unknown Cash", price: 72332 },
+                    { id: 13, name: "300 UC", desc: "300 Unknown Cash", price: 73500 },
+                    { id: 14, name: "375 UC", desc: "375 Unknown Cash", price: 90226 },
+                    { id: 15, name: "525 UC", desc: "525 Unknown Cash", price: 136150 },
+                    { id: 16, name: "700 UC", desc: "700 Unknown Cash", price: 158300 },
+                    { id: 17, name: "750 UC", desc: "750 Unknown Cash", price: 173550 },
+                    { id: 18, name: "1000 UC", desc: "1000 Unknown Cash", price: 230620 },
+                    { id: 19, name: "1100 UC", desc: "1100 Unknown Cash", price: 256127 },
+                    { id: 20, name: "1500 UC", desc: "1500 Unknown Cash", price: 345293 },
+                    { id: 21, name: "1250 UC", desc: "1250 Unknown Cash", price: 350438 },
+                    { id: 22, name: "1750 UC", desc: "1750 Unknown Cash", price: 361911 },
+                    { id: 23, name: "2500 UC", desc: "2500 Unknown Cash", price: 510285 }
+                ]
+            },
+            { 
+                id: 'freefire', 
+                name: 'Free Fire', 
+                company: 'Garena', 
+                image: 'https://i.imgur.com/PEE2T1r.jpg', 
+                logo: 'https://i.imgur.com/PEE2T1r.jpg',
+                hasIdServer: true,
+                requiresServer: true,
+                currencyName: 'Diamond & Membership',
+                currencyTitle: 'Diamond & Membership FF',
+                currencyPackages: [
+                    { id: 1, name: "Membership Level Up Pass Lv 6", desc: "Membership Level Up Pass Lv 6", price: 4850 },
+                    { id: 2, name: "Membership Level Up Pass Lv 10", desc: "Membership Level Up Pass Lv 10", price: 8140 },
+                    { id: 3, name: "Membership Level Up Pass Lv 15", desc: "Membership Level Up Pass Lv 15", price: 8140 },
+                    { id: 4, name: "Membership Level Up Pass Lv 20", desc: "Membership Level Up Pass Lv 20", price: 8140 },
+                    { id: 5, name: "Membership Level Up Pass Lv 25", desc: "Membership Level Up Pass Lv 25", price: 8140 },
+                    { id: 6, name: "Membership Level Up Pass Lv 30", desc: "Membership Level Up Pass Lv 30", price: 12900 },
+                    { id: 7, name: "Membership Mingguan 50 Diamond ", desc: "Membership Mingguan 50 Diamond", price: 26521 },
+                    { id: 8, name: "Membership Bulanan 50 Diamond", desc: "Membership Bulanan 50 Diamond", price: 79623 },
+                    { id: 9, name: "Booyah Pass (BP CARD)", desc: "Booyah Pass (BP CARD)", price: 40130 },
+                    { id: 10, name: "5 Diamond", desc: "5 Diamond", price: 840 },
+                    { id: 11, name: "12 Diamond", desc: "12 Diamond", price: 1760 },
+                    { id: 12, name: "50 Diamond", desc: "50 Diamond", price: 6320 },
+                    { id: 13, name: "70 Diamond", desc: "70 Diamond", price: 2500 },
+                    { id: 14, name: "100 Diamond", desc: "100 Diamond", price: 12778 },
+                    { id: 15, name: "140 Diamond", desc: "140 Diamond", price: 16878 },
+                    { id: 16, name: "210 Diamond", desc: "210 Diamond", price: 25185 },
+                    { id: 17, name: "300 Diamond", desc: "300 Diamond", price: 39450 },
+                    { id: 18, name: "355 Diamond", desc: "355 Diamond", price: 41921 },
+                    { id: 19, name: "500 Diamond", desc: "500 Diamond", price: 59722 },
+                    { id: 20, name: "720 Diamond", desc: "720 Diamond", price: 83752 },
+                    { id: 21, name: "1000 Diamond", desc: "1000 Diamond", price: 117835 },
+                    { id: 22, name: "1450 Diamond", desc: "1450 Diamond", price: 167446 },
+                    { id: 23, name: "2180 Diamond", desc: "2180 Diamond", price: 250966 },
+                    { id: 24, name: "3640 Diamond", desc: "3640 Diamond", price: 418212 },
+                    { id: 25, name: "4000 Diamond", desc: "4000 Diamond", price: 468150 },
+                    { id: 26, name: "7290 Diamond", desc: "7290 Diamond", price: 839986 }
+                ]
+            },
+            { 
+                id: 'codmobile', 
+                name: 'Call of Duty', 
+                company: 'Activision', 
+                image: 'https://i.imgur.com/KS0Wo2e.jpg', 
+                logo: 'https://i.imgur.com/KS0Wo2e.jpg',
+                hasIdServer: true,
+                requiresServer: false,
+                currencyName: 'CP',
+                currencyTitle: 'COD Points',
+                currencyPackages: [
+                    { id: 1, name: "31 (26+5 Bonus) CP", desc: "31 (26+5 Bonus)", price: 4800 },
+                    { id: 2, name: "62 (53+9 Bonus) CP", desc: "62 (53+9 Bonus)", price: 9150 },
+                    { id: 3, name: "127 (106+21 Bonus) CP", desc: "127 (106+21 Bonus)", price: 19299 },
+                    { id: 4, name: "317 (264+53 Bonus) CP", desc: "317 (264+53 Bonus)", price: 44335 },
+                    { id: 5, name: "634 (528+106 Bonus) CP", desc: "634 (528+106 Bonus)", price: 93299 },
+                    { id: 6, name: "1373 (1056+317 Bonus) CP", desc: "1373 (1056+317 Bonus)", price: 178350 },
+                    { id: 7, name: "2059 (1584+475 Bonus) CP", desc: "2059 (1584+475 Bonus)", price: 211750 }
+                ]
+            }
+        ];
+
+        // ==================== STATE ====================
+        let currentGame = null;
+        let selectedPackage = null;
+        let selectedPayment = 'DANA';
+        let playerId = '';
+        let serverId = '';
+        let currentSlide = 0;
+        let sliderInterval;
+        let isDragging = false;
+        let startPos = 0;
+        let sliderTrack;
+
+        // ==================== CONFETTI ====================
+        function fireConfetti() {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            confetti({ particleCount: 60, spread: 50, origin: { y: 0.5, x: 0.2 }, colors: ['#3b82f6', '#8b5cf6'] });
+            confetti({ particleCount: 60, spread: 50, origin: { y: 0.5, x: 0.8 }, colors: ['#10b981', '#f59e0b'] });
+        }
+
+        // ==================== GENERATE LIVE ORDERS ====================
+        function generateLiveOrders() {
+            const names = ['Rian', 'Dinda', 'Fajar', 'Siti', 'Budi', 'Rina', 'Andre', 'Maya', 'Joko', 'Lina'];
+            const items = ['Diamond ML', 'Weekly Pass', 'Starlight', 'UC PUBG', 'Diamond FF', 'CP COD'];
+            const container = document.getElementById('liveOrdersContent');
+            container.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const name = names[Math.floor(Math.random() * names.length)];
+                const item = items[Math.floor(Math.random() * items.length)];
+                const price = Math.floor(Math.random() * 50000 + 10000);
+                const span = document.createElement('span');
+                span.className = 'live-orders-item';
+                span.innerHTML = `<i class="fas fa-bolt"></i> ${name} • ${item} • Rp${price.toLocaleString()}`;
+                container.appendChild(span);
+            }
+            container.innerHTML += container.innerHTML;
+        }
+// ==================== CREATE PARTICLES ====================
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.width = Math.random() * 8 + 2 + 'px';
+                p.style.height = p.style.width;
+                p.style.animationDelay = Math.random() * 10 + 's';
+                p.style.animationDuration = Math.floor(Math.random() * 15 + 15) + 's';
+                container.appendChild(p);
+            }
+        }
+
+        // ==================== FILTER GAME ====================
+        function filterGames(category) {
+            const cards = document.querySelectorAll('.game-card');
+            cards.forEach(card => {
+                if (category === 'popular') {
+                    card.style.display = 'flex';
+                } else if (category === 'moba') {
+                    card.style.display = card.dataset.category === 'moba' ? 'flex' : 'none';
+                } else if (category === 'action') {
+                    card.style.display = card.dataset.category === 'action' ? 'flex' : 'none';
+                }
+            });
+        }
+
+        // ==================== POPUP SUKSES + COUNTDOWN ====================
+        function showSuccessPopup(callback) {
+            const popup = document.getElementById('success-popup');
+            const countdownSpan = document.getElementById('countdown-number');
+            let count = 3;
+            countdownSpan.textContent = count;
+            popup.style.display = 'flex';
+            fireConfetti();
+            
+            const interval = setInterval(() => {
+                count--;
+                countdownSpan.textContent = count;
+                if (count === 0) {
+                    clearInterval(interval);
+                    popup.style.display = 'none';
+                    callback();
+                }
+            }, 1000);
+        }
+
+        // ==================== INISIALISASI ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            generateLiveOrders();
+            fireConfetti();
+            
+            initSlider();
+            
+            // Event listener untuk card game + confetti saat klik
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    fireConfetti(); // confetti saat klik card
+                    const gameId = this.getAttribute('data-game');
+                    openGameModal(gameId);
+                });
+            });
+            
+            // Filter badge
+            document.querySelectorAll('.filter-badge').forEach(badge => {
+                badge.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-badge').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const filter = this.dataset.filter;
+                    filterGames(filter);
+                });
+            });
+            
+            document.getElementById('modal-close').addEventListener('click', closeModal);
+            document.getElementById('player-id').addEventListener('input', updateOrderSummary);
+            document.getElementById('server-id').addEventListener('input', checkRegion);
+            
+            // Order WA dengan popup sukses
+            document.getElementById('whatsapp-order').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!currentGame) return;
+                if (currentGame.hasIdServer) {
+                    const serverRequired = currentGame.requiresServer !== false;
+                    if (!playerId || playerId.length < 6) {
+                        alert('Harap masukkan ID Player dengan benar (min 6 karakter).');
+                        return;
+                    }
+                    if (serverRequired && (!serverId || serverId.length < 2)) {
+                        alert('Harap masukkan Server dengan benar.');
+                        return;
+                    }
+                }
+                if (!selectedPackage) {
+                    alert('Pilih paket dulu ya!');
+                    return;
+                }
+                
+                // Simpan data untuk redirect
+                const gameName = currentGame.name;
+                const nickname = document.getElementById('nickname')?.value || '-';
+                const phoneNumber = '6285791386325';
+                const payment = selectedPayment || 'DANA';
+                
+                let msg = `Halo ClevvStore! saya mau top up:%0A%0A`;
+                msg += `*Game:* ${gameName}%0A`;
+                msg += `*Paket:* ${selectedPackage.name}%0A`;
+                msg += `*Harga:* Rp${selectedPackage.price.toLocaleString('id-ID')}%0A`;
+                if (currentGame.hasIdServer) {
+                    msg += `*ID Player:* ${playerId}%0A`;
+                    msg += `*Server:* ${serverId || '-'}%0A`;
+                    msg += `*Nickname:* ${nickname}%0A`;
+                }
+                msg += `*Pembayaran:* ${payment}%0A`;
+                msg += `*Pengiriman:* INSTAN ⚡%0A%0A`;
+                msg += `Terima kasih! 🙏`;
+                
+                const waUrl = `https://wa.me/${phoneNumber}?text=${msg}`;
+                
+                // Tampilkan popup sukses + countdown
+                showSuccessPopup(() => {
+                    window.open(waUrl, '_blank');
+                });
+            });
+            
+            document.getElementById('search-button').addEventListener('click', function() {
+                document.getElementById('search-input').focus();
+                handleSearch();
+            });
+            
+            document.getElementById('search-input').addEventListener('input', handleSearch);
+            document.getElementById('search-input').addEventListener('focus', showSearchResults);
+            
+            document.getElementById('game-modal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+            
+            setupSliderDrag();
+            
+            document.addEventListener('click', function(e) {
+                const searchContainer = document.querySelector('.search-section');
+                if (!searchContainer.contains(e.target)) {
+                    document.getElementById('search-results').style.display = 'none';
+                }
+            });
+
+            // PAYMENT SELECTION
+            document.querySelectorAll('.payment-item').forEach(pm => {
+                pm.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    document.querySelectorAll('.payment-item').forEach(p => p.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedPayment = this.getAttribute('data-payment');
+                    document.getElementById('selected-payment').textContent = selectedPayment;
+                });
+                if (pm.getAttribute('data-payment') === 'DANA') {
+                    pm.classList.add('selected');
+                }
+            });
+            
+            // Set default filter aktif
+            filterGames('popular');
+        });
+
+        // ==================== SLIDER ====================
+        function initSlider() {
+            sliderTrack = document.getElementById('slider-track');
+            sliderInterval = setInterval(() => goToSlide(currentSlide + 1), 5000);
+        }
+
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.slider-slide');
+            if (index >= slides.length) index = 0;
+            if (index < 0) index = slides.length - 1;
+            currentSlide = index;
+            sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+            clearInterval(sliderInterval);
+            sliderInterval = setInterval(() => goToSlide(currentSlide + 1), 5000);
+        }
+
+        function setupSliderDrag() {
+            sliderTrack = document.getElementById('slider-track');
+            sliderTrack.addEventListener('mousedown', dragStart);
+            sliderTrack.addEventListener('mousemove', drag);
+            sliderTrack.addEventListener('mouseup', dragEnd);
+            sliderTrack.addEventListener('mouseleave', dragEnd);
+            sliderTrack.addEventListener('touchstart', dragStart);
+            sliderTrack.addEventListener('touchmove', drag);
+            sliderTrack.addEventListener('touchend', dragEnd);
+            sliderTrack.addEventListener('dragstart', e => e.preventDefault());
+        }
+
+        function dragStart(e) {
+            if (e.type === 'touchstart') startPos = e.touches[0].clientX;
+            else { startPos = e.clientX; e.preventDefault(); }
+            isDragging = true;
+            sliderTrack.style.transition = 'none';
+            clearInterval(sliderInterval);
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            const pos = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+            const diff = pos - startPos;
+            sliderTrack.style.transform = `translateX(calc(-${currentSlide * 100}% + ${diff}px))`;
+        }
+
+        function dragEnd(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            sliderTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            const pos = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX;
+            const diff = pos - startPos;
+            if (Math.abs(diff) > 100) diff > 0 ? goToSlide(currentSlide - 1) : goToSlide(currentSlide + 1);
+            else goToSlide(currentSlide);
+            sliderInterval = setInterval(() => goToSlide(currentSlide + 1), 5000);
+        }
+
+        // ==================== MODAL ====================
+        function openGameModal(gameId) {
+            const game = gamesData.find(g => g.id === gameId);
+            if (!game) return;
+            currentGame = game;
+            
+            document.getElementById('modal-logo').src = game.logo;
+            document.getElementById('modal-game-name').textContent = game.name;
+            document.getElementById('modal-game-company').textContent = game.company;
+            
+            document.getElementById('order-form-section').style.display = game.hasIdServer ? 'block' : 'none';
+            
+            document.getElementById('player-id').value = '';
+            document.getElementById('server-id').value = '';
+            document.getElementById('nickname').value = '';
+            document.getElementById('region-check').style.display = 'none';
+            playerId = ''; serverId = '';
+            
+            if (game.requiresServer === false) {
+                document.querySelector('#server-row .form-label').innerHTML = 'Server (Opsional)';
+            } else {
+                document.querySelector('#server-row .form-label').innerHTML = 'Server (Zone)';
+            }
+            
+            const weeklySection = document.getElementById('weekly-pass-section');
+            const starlightSection = document.getElementById('starlight-section');
+            if (game.id === 'mlbb') {
+                weeklySection.style.display = 'block';
+                starlightSection.style.display = 'block';
+                generateWeeklyPass(game.weeklyPass);
+                generateStarlight(game.starlight);
+            } else {
+                weeklySection.style.display = 'none';
+                starlightSection.style.display = 'none';
+            }
+            
+            document.getElementById('currency-title').textContent = game.currencyTitle;
+            generateCurrencyPackages(game.currencyPackages);
+            
+            selectedPackage = null;
+            updateOrderSummary();
+            
+            document.getElementById('game-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            fireConfetti();
+        }
+
+        function closeModal() {
+            document.getElementById('game-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ==================== GENERATE PACKAGES ====================
+        function generateWeeklyPass(packages) {
+            const grid = document.getElementById('weekly-pass-grid');
+            grid.innerHTML = '';
+            packages.forEach(pkg => {
+                const item = document.createElement('div');
+                item.className = 'package-item';
+                item.dataset.id = pkg.id;
+                item.dataset.name = pkg.name;
+                item.dataset.price = pkg.price;
+                item.innerHTML = `${pkg.badge ? `<div class="package-badge">${pkg.badge}</div>` : ''}
+                    <div class="package-name">${pkg.name}</div>
+                    <div class="package-desc">${pkg.desc}</div>
+                    <div class="package-price">Rp${pkg.price.toLocaleString('id-ID')}</div>`;
+                item.addEventListener('click', selectPackage);
+                grid.appendChild(item);
+            });
+        }
+
+        function generateStarlight(packages) {
+            const grid = document.getElementById('starlight-grid');
+            grid.innerHTML = '';
+            packages.forEach(pkg => {
+                const item = document.createElement('div');
+                item.className = 'package-item';
+                item.dataset.id = pkg.id;
+                item.dataset.name = pkg.name;
+                item.dataset.price = pkg.price;
+                item.innerHTML = `<div class="package-name">${pkg.name}</div>
+                    <div class="package-desc">${pkg.desc}</div>
+                    <div class="package-price">Rp${pkg.price.toLocaleString('id-ID')}</div>`;
+                item.addEventListener('click', selectPackage);
+                grid.appendChild(item);
+            });
+        }
+
+        function generateCurrencyPackages(packages) {
+            const grid = document.getElementById('currency-grid');
+            grid.innerHTML = '';
+            packages.forEach(pkg => {
+                const item = document.createElement('div');
+                item.className = 'currency-item';
+                item.dataset.id = `${currentGame.id}-${pkg.id}`;
+                item.dataset.name = pkg.name;
+                item.dataset.price = pkg.price;
+                item.innerHTML = `<div class="currency-name">${pkg.name}</div>
+                    <div class="currency-desc">${pkg.desc}</div>
+                    <div class="currency-price">Rp${pkg.price.toLocaleString('id-ID')}</div>`;
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.currency-item, .package-item').forEach(el => el.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedPackage = { id: this.dataset.id, name: this.dataset.name, price: parseInt(this.dataset.price) };
+                    updateOrderSummary();
+                    document.querySelector('.order-summary').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    fireConfetti();
+                });
+                grid.appendChild(item);
+            });
+        }
+
+        function selectPackage(e) {
+            const item = e.currentTarget;
+            document.querySelectorAll('.currency-item, .package-item').forEach(el => el.classList.remove('selected'));
+            item.classList.add('selected');
+            selectedPackage = { id: item.dataset.id, name: item.dataset.name, price: parseInt(item.dataset.price) };
+            updateOrderSummary();
+            document.querySelector('.order-summary').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            fireConfetti();
+        }
+
+        // ==================== REGION CHECK ====================
+        function checkRegion() {
+            const playerIdEl = document.getElementById('player-id');
+            const serverIdEl = document.getElementById('server-id');
+            const regionCheck = document.getElementById('region-check');
+            const nicknameInput = document.getElementById('nickname');
+            
+            playerId = playerIdEl.value.trim();
+            serverId = serverIdEl.value.trim();
+            
+            if (!currentGame) return;
+            
+            if (playerId) localStorage.setItem(`${currentGame.id}-player-id`, playerId);
+            if (serverId) localStorage.setItem(`${currentGame.id}-server-id`, serverId);
+            
+            const serverRequired = currentGame.requiresServer !== false;
+            
+            if (playerId.length >= 6 && (!serverRequired || serverId.length >= 2)) {
+                setTimeout(() => {
+                    regionCheck.style.display = 'flex';
+                    nicknameInput.value = `Player${playerId.substring(0, 4)}`;
+                    updateOrderSummary();
+                }, 500);
+            } else {
+                regionCheck.style.display = 'none';
+                nicknameInput.value = '';
+            }
+        }
+
+        function updateOrderSummary() {
+            const pid = document.getElementById('player-id')?.value.trim() || '';
+            const sid = document.getElementById('server-id')?.value.trim() || '';
+            document.getElementById('summary-player-id').textContent = pid || '-';
+            document.getElementById('summary-server').textContent = sid || '-';
+            
+            if (selectedPackage) {
+                document.getElementById('selected-package-name').textContent = selectedPackage.name;
+                document.getElementById('summary-total').textContent = `Rp${selectedPackage.price.toLocaleString('id-ID')}`;
+            } else {
+                document.getElementById('selected-package-name').textContent = '-';
+                document.getElementById('summary-total').textContent = 'Rp0';
+            }
+        }
+
+        // ==================== SEARCH ====================
+        function handleSearch() {
+            const term = document.getElementById('search-input').value.toLowerCase().trim();
+            const res = document.getElementById('search-results');
+            if (term.length === 0) { res.style.display = 'none'; return; }
+            const filtered = gamesData.filter(g => g.name.toLowerCase().includes(term) || g.company.toLowerCase().includes(term));
+            if (filtered.length > 0) {
+                res.innerHTML = '';
+                filtered.forEach(game => {
+                    const div = document.createElement('div');
+                    div.className = 'search-result-item';
+                    div.innerHTML = `<img src="${game.image}" class="search-result-img" alt="${game.name}">
+                                    <div>
+                                        <div class="search-result-name">${game.name}</div>
+                                        <div class="search-result-company">${game.company}</div>
+                                    </div>`;
+                    div.addEventListener('click', () => { 
+                        openGameModal(game.id); 
+                        res.style.display = 'none'; 
+                        document.getElementById('search-input').value = ''; 
+                    });
+                    res.appendChild(div);
+                });
+                res.style.display = 'block';
+            } else {
+                res.innerHTML = '<div style="padding:20px;text-align:center;color:var(--gray-500);">Game tidak ditemukan 😢</div>';
+                res.style.display = 'block';
+            }
+        }
+function showSearchResults() {
+            if (document.getElementById('search-input').value.length > 0) {
+                document.getElementById('search-results').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
+   
