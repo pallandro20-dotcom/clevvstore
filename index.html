@@ -1180,10 +1180,10 @@
                         <div class="form-group">
                             <label class="form-label" for="server-id">Server (Zone)</label>
                             <input type="text" id="server-id" class="form-input" placeholder="Masukkan Server">
-                            <small style="color: var(--gray-500); display: block; margin-top: 6px;">Contoh: 1234 (opsional, jika tidak ada = -)</small>
+                            <small style="color: var(--gray-500); display: block; margin-top: 6px;">opsional, jika tidak ada = -</small>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="nickname">Nickname</label>
+                            <label class="form-label" for="nickname">Nickname (Hanya Demo!) tidak real</label>
                             <input type="text" id="nickname" class="form-input" placeholder="Otomatis" readonly>
                         </div>
                     </div>
@@ -1474,32 +1474,26 @@
                 currencyName: 'Diamond & Membership',
                 currencyTitle: 'Diamond & Membership FF',
                 currencyPackages: [
-                    { id: 1, name: "Membership Level Up Pass Lv 6", desc: "Membership Level Up Pass Lv 6", price: 4850 },
-                    { id: 2, name: "Membership Level Up Pass Lv 10", desc: "Membership Level Up Pass Lv 10", price: 8140 },
-                    { id: 3, name: "Membership Level Up Pass Lv 15", desc: "Membership Level Up Pass Lv 15", price: 8140 },
-                    { id: 4, name: "Membership Level Up Pass Lv 20", desc: "Membership Level Up Pass Lv 20", price: 8140 },
-                    { id: 5, name: "Membership Level Up Pass Lv 25", desc: "Membership Level Up Pass Lv 25", price: 8140 },
-                    { id: 6, name: "Membership Level Up Pass Lv 30", desc: "Membership Level Up Pass Lv 30", price: 12900 },
-                    { id: 7, name: "Membership Mingguan 50 Diamond ", desc: "Membership Mingguan 50 Diamond", price: 26521 },
-                    { id: 8, name: "Membership Bulanan 50 Diamond", desc: "Membership Bulanan 50 Diamond", price: 79623 },
-                    { id: 9, name: "Booyah Pass (BP CARD)", desc: "Booyah Pass (BP CARD)", price: 40130 },
-                    { id: 10, name: "5 Diamond", desc: "5 Diamond", price: 840 },
-                    { id: 11, name: "12 Diamond", desc: "12 Diamond", price: 1760 },
-                    { id: 12, name: "50 Diamond", desc: "50 Diamond", price: 6320 },
-                    { id: 13, name: "70 Diamond", desc: "70 Diamond", price: 2500 },
-                    { id: 14, name: "100 Diamond", desc: "100 Diamond", price: 12778 },
-                    { id: 15, name: "140 Diamond", desc: "140 Diamond", price: 16878 },
-                    { id: 16, name: "210 Diamond", desc: "210 Diamond", price: 25185 },
-                    { id: 17, name: "300 Diamond", desc: "300 Diamond", price: 39450 },
-                    { id: 18, name: "355 Diamond", desc: "355 Diamond", price: 41921 },
-                    { id: 19, name: "500 Diamond", desc: "500 Diamond", price: 59722 },
-                    { id: 20, name: "720 Diamond", desc: "720 Diamond", price: 83752 },
-                    { id: 21, name: "1000 Diamond", desc: "1000 Diamond", price: 117835 },
-                    { id: 22, name: "1450 Diamond", desc: "1450 Diamond", price: 167446 },
-                    { id: 23, name: "2180 Diamond", desc: "2180 Diamond", price: 250966 },
-                    { id: 24, name: "3640 Diamond", desc: "3640 Diamond", price: 418212 },
-                    { id: 25, name: "4000 Diamond", desc: "4000 Diamond", price: 468150 },
-                    { id: 26, name: "7290 Diamond", desc: "7290 Diamond", price: 839986 }
+                    { id: 1, name: "Membership Mingguan 50 Diamond ", desc: "Membership Mingguan 50 Diamond", price: 28000 },
+                    { id: 2, name: "Membership Bulanan 50 Diamond", desc: "Membership Bulanan 50 Diamond", price: 83850 },
+                    { id: 3, name: "Booyah Pass (BP CARD)", desc: "Booyah Pass (BP CARD)", price: 42000 },
+                    { id: 4, name: "5 Diamond", desc: "5 Diamond", price: 940 },
+                    { id: 5, name: "12 Diamond", desc: "12 Diamond", price: 1880 },
+                    { id: 6, name: "50 Diamond", desc: "50 Diamond", price: 6890 },
+                    { id: 7, name: "70 Diamond", desc: "70 Diamond", price: 8920 },
+                    { id: 8, name: "100 Diamond", desc: "100 Diamond", price: 12778 },
+                    { id: 9, name: "140 Diamond", desc: "140 Diamond", price: 17878 },
+                    { id: 10, name: "210 Diamond", desc: "210 Diamond", price: 26985 },
+                    { id: 11, name: "300 Diamond", desc: "300 Diamond", price: 41450 },
+                    { id: 12, name: "355 Diamond", desc: "355 Diamond", price: 45500 },
+                    { id: 13, name: "500 Diamond", desc: "500 Diamond", price: 65000 },
+                    { id: 14, name: "720 Diamond", desc: "720 Diamond", price: 90000 },
+                    { id: 15, name: "1000 Diamond", desc: "1000 Diamond", price: 126800 },
+                    { id: 16, name: "1450 Diamond", desc: "1450 Diamond", price: 183200 },
+                    { id: 17, name: "2180 Diamond", desc: "2180 Diamond", price: 275600 },
+                    { id: 18, name: "3640 Diamond", desc: "3640 Diamond", price: 460400 },
+                    { id: 19, name: "4000 Diamond", desc: "4000 Diamond", price: 518200 },
+                    { id: 20, name: "7290 Diamond", desc: "7290 Diamond", price: 933700 }
                 ]
             },
             { 
@@ -1594,7 +1588,7 @@
         function showSuccessPopup(callback) {
             const popup = document.getElementById('success-popup');
             const countdownSpan = document.getElementById('countdown-number');
-            let count = 3;
+            let count = 2;
             countdownSpan.textContent = count;
             popup.style.display = 'flex';
             fireConfetti();
